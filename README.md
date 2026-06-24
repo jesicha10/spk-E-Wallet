@@ -1,4 +1,197 @@
 
+# 🚀 SPK E-Wallet
+
+**Sistem Pendukung Keputusan Pemilihan E-Wallet Terbaik di Indonesia Menggunakan Metode SMART**
+
+---
+
+## 📌 Deskripsi Singkat
+
+SPK E-Wallet adalah aplikasi berbasis web yang membantu pengguna memilih dompet digital (E-Wallet) terbaik secara objektif menggunakan metode **SMART (Simple Multi-Attribute Rating Technique)**. Aplikasi ini mengevaluasi **7 alternatif E-Wallet** (OVO, DANA, GoPay, ShopeePay, iSaku, LinkAja, Doku) berdasarkan **5 kriteria** yang relevan.
+
+---
+
+## 🎯 Latar Belakang
+
+Pesatnya pertumbuhan transaksi uang elektronik di Indonesia (mencapai Rp2,5 kuadriliun pada 2024, tumbuh 34,62%) menciptakan tantangan bagi pengguna dalam memilih E-Wallet yang paling sesuai dengan kebutuhan mereka. Setiap E-Wallet memiliki kelebihan dan kekurangan pada aspek yang berbeda. 
+
+Aplikasi ini hadir sebagai solusi dengan menyediakan **model keputusan yang objektif, terstruktur, dan dapat dipertanggungjawabkan secara ilmiah**.
+
+---
+
+## ✨ Fitur Utama
+
+| Fitur | Deskripsi |
+|-------|-----------|
+| 📊 **Dashboard** | Menampilkan statistik jumlah kriteria, alternatif, dan penilaian + grafik ranking |
+| 📋 **Kriteria** | CRUD data kriteria (kode, nama, bobot, tipe, satuan) |
+| 📱 **Alternatif** | CRUD data E-Wallet (kode, nama) |
+| ✏️ **Penilaian** | Input nilai setiap alternatif terhadap seluruh kriteria |
+| 🧮 **Perhitungan SMART** | Menampilkan normalisasi bobot, nilai utilitas, dan nilai akhir |
+| 🏆 **Ranking** | Menampilkan peringkat E-Wallet dari tertinggi ke terendah + Export PDF |
+
+---
+
+## 🛠️ Teknologi yang Digunakan
+
+| Teknologi | Fungsi |
+|-----------|--------|
+| **Laravel 12** | Backend & Routing |
+| **Bootstrap 5** | Tampilan responsif & modern |
+| **Chart.js** | Visualisasi grafik |
+| **SweetAlert2** | Popup notifikasi interaktif |
+| **DataTables** | Tabel dinamis dengan pencarian & sorting |
+| **Google Font Poppins** | Tipografi modern |
+| **Bootstrap Icons** | Ikon-ikon pendukung |
+
+---
+
+## 📋 Prasyarat Instalasi
+
+Pastikan komputer Anda memiliki:
+
+- **PHP 8.2** atau lebih tinggi
+- **Composer**
+- **Node.js & NPM**
+- **Database** (MySQL / SQLite / PostgreSQL)
+
+---
+
+## 🚀 Langkah Instalasi
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/jesicha10/spk-E-Wallet.git
+cd spk-E-Wallet
+```
+
+### 2. Install Dependencies PHP
+
+```bash
+composer install
+```
+
+### 3. Install Dependencies NPM
+
+```bash
+npm install
+```
+
+### 4. Buat File Environment
+
+```bash
+cp .env.example .env
+```
+
+Lalu buka file `.env` dan sesuaikan konfigurasi database:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=spk_ewallet
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 5. Generate Key
+
+```bash
+php artisan key:generate
+```
+
+### 6. Jalankan Migration & Seeder
+
+```bash
+php artisan migrate
+php artisan db:seed --class=DataAwalSeeder
+```
+
+> **Catatan:** Seeder akan mengisi data awal (kriteria, alternatif) secara otomatis.
+
+### 7. Build Asset
+
+```bash
+npm run build
+```
+
+### 8. Jalankan Server
+
+```bash
+php artisan serve
+```
+
+### 9. Akses Aplikasi
+
+Buka browser dan akses:
+
+```
+http://localhost:8000
+```
+
+---
+
+## 📊 Kriteria yang Digunakan
+
+| Kode | Kriteria | Satuan | Tipe | Bobot |
+|------|----------|--------|------|-------|
+| C1 | Rating Aplikasi | ⭐ Bintang (1-5) | Benefit | 7 |
+| C2 | Jumlah Pengguna | 👥 Juta Orang | Benefit | 1 |
+| C3 | Biaya Tarik Tunai | 💰 Rupiah (Rp) | Cost | 3 |
+| C4 | Cashback / Promo | 📊 Persen (%) | Benefit | 5 |
+| C5 | Ukuran Aplikasi | 💾 Megabyte (MB) | Cost | 3 |
+
+**Total Bobot = 19**
+
+---
+
+## 🏆 Hasil Ranking (Berdasarkan Data Jurnal)
+
+| Ranking | E-Wallet | Nilai Akhir | Keterangan |
+|---------|----------|-------------|------------|
+| 🏆 #1 | **DANA** | 0.8254 | Terbaik |
+| 🥈 #2 | **ShopeePay** | 0.7803 | Runner Up 1 |
+| 🥉 #3 | **GoPay** | 0.7252 | Runner Up 2 |
+| #4 | **OVO** | 0.4860 | Alternatif |
+| #5 | **Doku** | 0.3486 | Alternatif |
+| #6 | **iSaku** | 0.3283 | Alternatif |
+| #7 | **LinkAja** | 0.2427 | Alternatif |
+
+---
+
+## 📁 Struktur Folder
+
+```
+spk-E-Wallet/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── DashboardController.php
+│   │   ├── KriteriaController.php
+│   │   ├── AlternatifController.php
+│   │   ├── PenilaianController.php
+│   │   ├── SmartController.php
+│   │   └── RankingController.php
+│   └── Models/
+│       ├── Kriteria.php
+│       ├── Alternatif.php
+│       └── Penilaian.php
+├── database/
+│   ├── migrations/
+│   └── seeders/
+├── resources/views/
+│   ├── dashboard/
+│   ├── kriteria/
+│   ├── alternatif/
+│   ├── penilaian/
+│   ├── smart/
+│   └── ranking/
+├── routes/web.php
+└── public/uploads/
+```
+
+---
+
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
